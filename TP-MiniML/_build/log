@@ -1,0 +1,17 @@
+# C:\Users\malek\AppData\Local\opam\4.14.0\bin\dune.exe build
+# OCAMLPARAM: unset
+# Shared cache: disabled
+# Shared cache location:
+# C:\Users\malek\AppData\Local\Microsoft\Windows\INetCache\dune\db
+# Workspace root: "C:\\Users\\malek\\Downloads\\help\\TP-MiniML"
+# Auto-detected concurrency: 8
+# Dune context:
+#  { name = "default"
+#  ; kind = "default"
+#  ; profile = Dev
+#  ; merlin = true
+#  ; fdo_target_exe = None
+#  ; build_dir = In_build_dir "default"
+#  ; instrument_with = []
+#  }
+$ C:\Users\malek\AppData\Local\opam\4.14.0\bin\ocamlc.opt.exe -config > C:\Users\malek\AppData\Local\Temp\dune_e2e7f0_output

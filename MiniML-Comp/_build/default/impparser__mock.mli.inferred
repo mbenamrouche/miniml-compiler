@@ -1,0 +1,60 @@
+type token =
+    WHILE
+  | VAR
+  | STAR
+  | SLASH
+  | SET
+  | SEMI
+  | SBRK
+  | RPAR
+  | RETURN
+  | RBRACKET
+  | PUTCHAR
+  | PRCT
+  | PLUS
+  | OR
+  | NOT
+  | NEQ
+  | MINUS
+  | MAIN
+  | LT
+  | LSR
+  | LSL
+  | LPAR
+  | LE
+  | LBRACKET
+  | INT of int
+  | IF
+  | IDENT of string
+  | GT
+  | GE
+  | FUNCTION
+  | EQ
+  | EOF
+  | END
+  | ELSE
+  | COMMA
+  | BOOL of bool
+  | BEGIN
+  | AND
+  | AMPERSAND
+val menhir_begin_marker : int
+val xv_variable_decl : string
+val xv_unop : Ops.unop
+val xv_separated_nonempty_list_COMMA_expression_ : Imp.expression list
+val xv_separated_nonempty_list_COMMA_IDENT_ : string list
+val xv_separated_list_COMMA_expression_ : Imp.expression list
+val xv_separated_list_COMMA_IDENT_ : string list
+val xv_program : Imp.program
+val xv_main : Imp.sequence
+val xv_loption_separated_nonempty_list_COMMA_expression__ :
+  Imp.expression list
+val xv_loption_separated_nonempty_list_COMMA_IDENT__ : string list
+val xv_list_variable_decl_ : string list
+val xv_list_instruction_ : Imp.sequence
+val xv_list_function_def_ : Imp.function_def list
+val xv_instruction : Imp.instruction
+val xv_function_def : Imp.function_def
+val xv_expression : Imp.expression
+val xv_binop : Ops.binop
+val menhir_end_marker : int

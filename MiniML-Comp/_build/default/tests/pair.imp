@@ -1,0 +1,16 @@
+var pair_3;
+var b_2;
+var pair_1;
+var a_0;
+
+main {
+  pair_1 = malloc((2*4));
+  pair_1[0] = 24;
+  pair_1[1] = 42;
+  a_0 = pair_1;
+  pair_3 = malloc((2*4));
+  pair_3[0] = a_0;
+  pair_3[1] = 1;
+  b_2 = pair_3;
+  print_int((snd(fstb_2)));
+}

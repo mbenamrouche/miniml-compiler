@@ -1,0 +1,23 @@
+# C:\Users\malek\AppData\Local\opam\4.14.0\bin\dune.exe build
+# OCAMLPARAM: unset
+# Shared cache: disabled
+# Shared cache location:
+# C:\Users\malek\AppData\Local\Microsoft\Windows\INetCache\dune\db
+# Workspace root: "C:\\Users\\malek\\Downloads\\help\\MiniML-Comp"
+# Auto-detected concurrency: 8
+# Dune context:
+#  { name = "default"
+#  ; kind = "default"
+#  ; profile = Dev
+#  ; merlin = true
+#  ; fdo_target_exe = None
+#  ; build_dir = In_build_dir "default"
+#  ; instrument_with = []
+#  }
+$ C:\Users\malek\AppData\Local\opam\4.14.0\bin\ocamlc.opt.exe -config > C:\Users\malek\AppData\Local\Temp\dune_6e8c00_output
+$ (cd _build/default && C:\Users\malek\AppData\Local\opam\4.14.0\bin\ocamldep.opt.exe -modules -impl clj2imp.ml) > _build/default/.minimlc.eobjs/dune__exe__Clj2imp.impl.d
+$ (cd _build/default && C:\Users\malek\AppData\Local\opam\4.14.0\bin\ocamldep.opt.exe -modules -impl mini2clj.ml) > _build/default/.minimlc.eobjs/dune__exe__Mini2clj.impl.d
+$ (cd _build/default && C:\Users\malek\AppData\Local\opam\4.14.0\bin\ocamlc.opt.exe -g -bin-annot -I .minimlc.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .minimlc.eobjs/byte/dune__exe__Clj2imp.cmo -c -impl clj2imp.ml)
+$ (cd _build/default && C:\Users\malek\AppData\Local\opam\4.14.0\bin\ocamlc.opt.exe -g -bin-annot -I .minimlc.eobjs/byte -no-alias-deps -opaque -open Dune__exe -o .minimlc.eobjs/byte/dune__exe__Mini2clj.cmo -c -impl mini2clj.ml)
+$ (cd _build/default && C:\Users\malek\AppData\Local\opam\4.14.0\bin\ocamlopt.opt.exe -g -I .minimlc.eobjs/byte -I .minimlc.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .minimlc.eobjs/native/dune__exe__Mini2clj.cmx -c -impl mini2clj.ml)
+$ (cd _build/default && C:\Users\malek\AppData\Local\opam\4.14.0\bin\ocamlopt.opt.exe -g -I .minimlc.eobjs/byte -I .minimlc.eobjs/native -intf-suffix .ml -no-alias-deps -opaque -open Dune__exe -o .minimlc.eobjs/native/dune__exe__Clj2imp.cmx -c -impl clj2imp.ml)

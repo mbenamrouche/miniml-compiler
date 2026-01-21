@@ -1,0 +1,193 @@
+==============================
+ Translation of MiniML to IMP
+==============================
+
+The translation of our functional language MiniML to the core imperative
+language IMP contains three main tasks:
+
+- decomposing MiniML expressions into sequence of instructions
+- implementing MiniML functions as closures
+- decomposing pattern matching as cascades of 'if's
+
+This folder contains a code skeleton for performing the translation in
+two steps :
+
+1/ closure conversion: translate MiniML into an intermediate language Clj,
+   where MiniML functions are turned into global function definitions and
+   closures
+2/ generation of IMP code, from the intermediate Clj representation
+   (includes compilation of pattern matching)
+
+Note: MiniML and IMP are slightly different compared to the previous parts
+where they appeared
+- MiniML is simplified to accept only patterns with exactly one constructor;
+  if you want to deal with nested patterns, you may revert to the MiniML
+  definition and parser from first part (conversely, you may also use this
+  simplified version in the first part if you struggle with patterns)
+- IMP is extended with pointers, both for data and for functions
+
+
+Contents
+========
+
+This folder contains the following elements.
+
+Language definitions:
+  - miniml.ml   Source language
+  - clj.ml      Intermediate language
+  - imp.ml      Target language
+  - ops.ml      Shared definition of operators
+
+A working compiler from IMP to MIPS (including pointers)
+  - impparser.mly, implexer.mll     parsing
+  - imp2mips.ml                     simple translation
+  - impc.ml                         main file of the compiler
+  - malloc.imp                      naive allocation library
+
+A skeletal compiler from MiniML to CLJ
+  - parser.mly, lexer.mll       parsing
+  - mini2clj.ml                 first step of the translation [TO BE COMPLETED]
+  - clj2imp.ml                  second step of the translation [TO BE COMPLETED]
+  - minimlc.ml                  main file of the compiler
+  - imppp.ml                    pretty-printer for IMP (writes the output in a file)
+
+
+Main Task
+=========
+You have to complete the two files [mini2clj.ml] and [clj2imp.ml] to produce
+a compiler from MiniML to IMP, covering as many features of MiniML as you can.
+
+Hints
+-----
+Separating concerns allow you to test the basic parts of the compiler before
+going further. For instance, at the beginning you may assume that all variables
+in the source program have different names, and implement name disambiguation
+only in a second step.
+
+Here is suggested order, allowing language features to be tested indepently:
+1. Constants and arithmetic operations (tests/arith.ml)
+2. Variables and local definitions (tests/let.ml)
+3. Pairs and projections (tests/pair.ml)
+4. Conditional expressions (tests/if.ml)
+5. Functions and applications (tests/fun1.ml and tests/fun2.ml)
+6. Recursive functions (tests/fact.fun)
+7. Constructors and pattern matching (tests/trees.ml)
+You are encouraged to add more test files for each of the features.
+
+Your first priority should be to have a subset of the MiniML language that
+actually works. Coverage comes only second.
+
+
+Additional information
+======================
+
+Pairs and projections
+---------------------
+The constructors Fst, Snd and Pair are including in the common module Ops,
+but they are not valid IMP operators. The MiniML compiler has to translate
+them to valid IMP operations.
+
+For this you need to choose an actual representation of pairs as IMP data
+structures. Suggested representation for a pair: a pointer to a block of
+memory with two main fields. You may also include a first field serving as a
+header.
+
+Then creation of a pair requires:
+- allocating a new block (and storing a pointer to the block)
+- initializing the header and the two main fiels with the values of the
+  two components of the pair
+- returning the pointer
+The pointer can be stored in a new local variable introduced on the fly.
+
+Structures
+----------
+Similarly to pairs, MiniML data structures can be implemented in IMP as
+pointers to memory blocks, with one header (or more if needed) and as
+many data fields as necessary. One of the fields has to identify the 
+constructor. For this, it is enough to associate a number to each constructor.
+
+Pattern matching
+----------------
+A pattern matching operation can be translated in IMP as a cascade of ifs,
+that test the constructor numbers. Then, when the appropriate branch is found,
+the pattern variables have to be initialized with the values of the appropriate
+substructures.
+
+
+Extensions
+==========
+These are suggestions of elements you can add to your compiler, or other
+things you can explore after this project.
+
+Unified project
+---------------
+The three parts of the project (MiniML typechecker & interpreter, IMP optimized
+compiler, MiniML compiler) can be kept separate, or merged as a single projet:
+an optimized MiniML compiler. Some of the extensions below make sense only
+in the merged project.
+
+Structural equality
+-------------------
+For now, your test of equality on data structures is probably implemented as
+physical equality: test whether the pointers are equal. In OCaml however,
+this test should compare the constructors and the values of each field (which
+may trigger recursive comparison of substructures!).
+
+You may consider two strategies for implementing structural equality:
+- use the typing information to translate each MiniML equality test to a
+  dedicated IMP code, that implements precisely the adequate exploration
+  (warning: not compatible with polymorphism)
+- write in IMP a generic function for testing structural equality of any
+  two structures (for this, the runtime must be able to distinguish immediate
+  values from pointers)
+
+Exhaustive pattern matching
+---------------------------
+For any pattern matching operation, check whether the list of cases is
+exhaustive. You may also try to detect redundant cases.
+
+Note: this is easy with simple patterns, but far from trivial if you also
+implemented nested patterns.
+
+Improved pattern matching
+-------------------------
+Add to the MiniML compiler the ability to deal with nested patterns, or
+other forms allowed in OCaml (or-patterns, naming with as...)
+
+Prettier printer
+----------------
+Modify the program printer for IMP (file imppp.ml) to improve the text
+produced. For instance, try to avoid unneeded parentheses, and pay more
+attention to indentation and linebreaks.
+
+Memory allocation
+-----------------
+Implement memory allocation and garbage collection, with a strategy of your
+choice. This memory allocator can be written in IMP, and included in the
+file malloc.imp (which is already included in the code compiled by impc).
+
+Note: for garbage collection, the runtime must be able to distinguish
+      immediate values from pointers.
+
+Function inlining
+-----------------
+Good programming habits often imply writing several small functions for 
+common elementary tasks. On the other hand, code with many small functions
+may be inefficient for (at least) two reasons:
+- function calls themselves are costly,
+- optimizations are performed mostly at the scale of a function, and
+  thus function boundaries prevent optimizations.
+Solution: during compilation, inline the calls to (nonrecursive) functions 
+          that are "small". This means replacing a function call by a copy
+          of the code that should be executed (and making sure that every
+          variable points to the right value).
+Note: this can be implemented in the MiniML or in the IMP compiler,
+      but has a strong requirement: the called function must be known
+      statically.
+
+Tail call optimization
+----------------------
+Optimize tail calls to avoid building a new call frame.
+
+This extension is mainly about the IMP compiler, since FUN function calls
+are translated into IMP calls.

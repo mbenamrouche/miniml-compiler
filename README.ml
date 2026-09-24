@@ -1,24 +1,15 @@
-TP-MiniML :
+TP-MiniML: extended the interpreter and typechecker with unary and binary
+operators, pairs and projections, constructors and pattern matching,
+including nested patterns (interpreter) and an exhaustiveness check
+(typechecker). Tests in tests/.
 
-Extended the interpreter and the typechecker to take into account:
-- the additional unary and binary operators
-- pairs and projections
-- constructors and exhaustive pattern matching
-with testing
+MiniML-Comp (MiniML -> IMP):
+- Working end to end (MiniML -> IMP -> MIPS): constants and arithmetic,
+  let-bindings, pairs and projections, conditionals.
+- Partial: functions and recursive functions. Closure conversion generates
+  IMP, but closures don't yet capture free variables, and pointer calls are
+  printed as (f)(args) where the IMP parser expects *.
+- Not implemented: constructors and pattern matching.
 
-
-MiniML-Comp :
-
-Implemented the following :
-
-1. Constants and arithmetic operations (tests/arith.ml)
-2. Variables and local definitions (tests/let.ml)
-3. Pairs and projections (tests/pair.ml)
-4. Conditional expressions (tests/if.ml)
-5. Functions and applications (tests/fun1.ml and tests/fun2.ml)
-6. Recursive functions (tests/fact.fun)
-7. Constructors and pattern matching (tests/trees.ml)
-
-ImpOpt :
-
-Tested and working
+ImpOpt: liveness analysis, linear-scan register allocation with spilling,
+and the IMP -> MIPS code generator adapted to use it. Tested on circle.imp.

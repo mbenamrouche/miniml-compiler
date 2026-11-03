@@ -1,5 +1,0 @@
-function malloc(n) {
-  return(sbrk(n));
-}
-
-main {}

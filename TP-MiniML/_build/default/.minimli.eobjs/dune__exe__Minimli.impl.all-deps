@@ -1,5 +1,0 @@
-dune__exe__Interpreter
-dune__exe__Lexer
-dune__exe__Miniml
-dune__exe__Parser
-dune__exe__Typechecker

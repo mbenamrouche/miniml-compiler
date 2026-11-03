@@ -12,5 +12,5 @@ main {
   pair_3[0] = a_0;
   pair_3[1] = 1;
   b_2 = pair_3;
-  print_int((snd(fstb_2)));
+  print_int(*(b_2[0]+(1*4)));
 }

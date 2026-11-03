@@ -43,7 +43,7 @@ let rec pp_expression: expression -> string = function
   | Addr(x) ->
     "&" ^ x
   | PCall(f, args) ->
-    sprintf "(%s)(%s)" (pp_expression f) (pp_args args)
+    sprintf "(*%s)(%s)" (pp_expression f) (pp_args args)
   | Sbrk(e) ->
     sprintf "sbrk(%s)" (pp_expression e)
       

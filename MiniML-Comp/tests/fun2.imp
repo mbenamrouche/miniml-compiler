@@ -23,9 +23,9 @@ main {
   closure_1[0] = &fun_0;
   f_0 = closure_1;
   func_ptr_3 = f_0[0];
-  result_4 = (func_ptr_3)(6,f_0);
+  result_4 = (*func_ptr_3)(6,f_0);
   g_2 = result_4;
   func_ptr_5 = g_2[0];
-  result_6 = (func_ptr_5)(7,g_2);
+  result_6 = (*func_ptr_5)(7,g_2);
   print_int(result_6);
 }

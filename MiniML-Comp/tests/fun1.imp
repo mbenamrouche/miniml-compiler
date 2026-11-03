@@ -12,6 +12,6 @@ main {
   closure_1[0] = &fun_0;
   f_0 = closure_1;
   func_ptr_2 = f_0[0];
-  result_3 = (func_ptr_2)(7,f_0);
+  result_3 = (*func_ptr_2)(7,f_0);
   print_int(result_3);
 }

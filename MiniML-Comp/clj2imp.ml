@@ -68,6 +68,14 @@ let tr_expr e env =
          let set_snd = Imp.array_set (Imp.Var ptr) (Imp.Int 1) te2 in
          is1 @ is2 @ [alloc; set_fst; set_snd], Imp.Var ptr
 
+      | Clj.Unop(Ops.Fst, e) ->
+         let is, te = tr_expr e env in
+         is, Imp.array_get te (Imp.Int 0)
+
+      | Clj.Unop(Ops.Snd, e) ->
+         let is, te = tr_expr e env in
+         is, Imp.array_get te (Imp.Int 1)
+
       | Clj.Unop(op, e) ->
          let is, te = tr_expr e env in
          is, Imp.Unop(op, te)
